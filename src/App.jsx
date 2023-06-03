@@ -1,6 +1,11 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import TaskList from './components/TaskList';
+import Menu from './components/Menu';
+import aboutUs from './pages/About_us';
+import Tareas from './pages/Tareas';
+import Home from './pages/home';
 
 function App() {
   const [taskList, setTaskList] = useState([]);
@@ -26,10 +31,16 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <BrowserRouter>
       <Header />
+      <Menu />
       <TaskList />
-    </div>
+      <Routes>
+        <Route path='/' Component={Home}></Route>
+        <Route path='/about_us' Component={aboutUs}></Route>
+        <Route path='/tareas' Component={Tareas}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
