@@ -1,0 +1,11 @@
+a {
+    color: rgb(234, 40, 40);
+}
+
+.completed-task {
+    text-decoration: line-through;
+}
+
+ul {
+    list-style-type: none;
+}
