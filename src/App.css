@@ -2,6 +2,10 @@ a {
     color: rgb(237, 24, 24);
 }
 
+h1 {
+    padding-left: 65px;
+}
+
 .completed-task {
     text-decoration: line-through;
 }

@@ -12,8 +12,14 @@ function TaskList() {
 
     const handleCreateTask = () => {
         if (newTask.trim() !== '') {
-            createTask(newTask);
-            setNewTask('');
+            if (newTask.trim().length >= 3) {
+                createTask(newTask);
+                setNewTask('');
+            } else {
+                alert('El nombre de la tarea debe tener al menos 3 caracteres');
+            }
+        } else {
+            alert('El nombre de la tarea no puede estar vacío');
         }
     };
 
@@ -84,3 +90,4 @@ function TaskList() {
 }
 
 export default TaskList;
+
