@@ -1,4 +1,4 @@
-/* import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+/* import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { Box, ChakraProvider, Container, Grid, GridItem, Button, Text } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
@@ -55,7 +55,7 @@ export default App;
  */
 
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-import { Box, ChakraProvider, Container, Grid, GridItem, Button, Text } from '@chakra-ui/react';
+import { Box, ChakraProvider, Container, extendTheme, ColorModeScript } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import TaskList from './components/TaskList';
@@ -63,6 +63,13 @@ import Menu from './components/Menu';
 import AboutUs from './pages/About_us';
 import Tareas from './pages/Tareas';
 import Home from './pages/Home';
+
+const theme = extendTheme({
+  config: {
+    initialColorMode: 'light',
+    useSystemColorMode: false,
+  },
+});
 
 function App() {
   const [taskList, setTaskList] = useState([]);
@@ -88,9 +95,10 @@ function App() {
   };
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Router>
-        <Box minH="100vh" bg="gray.100">
+        <Box minH="100vh" >
           <Header />
           <Container maxW="container.lg" py={6}>
             <Menu />

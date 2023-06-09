@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useTaskList from './useTaskList';
 import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -37,6 +37,10 @@ function TaskList() {
             updatedCompletedTasks.push(id);
         }
         setCompletedTasks(updatedCompletedTasks);
+
+        setTimeout(() => {
+            deleteTask(id); // Eliminar la tarea después de 3 segundos
+        }, 3000);
     };
 
     return (
@@ -52,66 +56,71 @@ function TaskList() {
                     }
                 }}
             />
-            {taskList.map((task, index) => (
-                <Box
-                    key={task.id}
-                    p={2}
-                    mb={2}
-                    bg={index % 2 === 0 ? 'beige.100' : 'gray.200'}
-                    borderRadius="md"
-                >
-                    <Flex alignItems="center">
-                        {editingTask === task.id ? (
-                            <>
-                                <Input
-                                    flex="1"
-                                    value={task.description}
-                                    onChange={(e) => updateTask(task.id, e.target.value)}
-                                />
-                                <Button size="sm" onClick={() => handleEdit(task.id, task.description)}>
-                                    Guardar
-                                </Button>
-                            </>
-                        ) : (
-                            <>
-                                <Text flex="1" className={completedTasks.includes(task.id) ? 'completed-task' : ''}>
-                                    {task.description}
-                                </Text>
-                                <Flex>
-                                    <Button
-                                        size="sm"
-                                        onClick={() => setEditingTask(task.id)}
-                                        leftIcon={<FontAwesomeIcon icon={faEdit} />}
-                                        variant="outline"
-                                        colorScheme="blue"
-                                    >
-                                        Editar
+            {
+                taskList.map((task, index) => (
+                    <Box
+                        key={task.id}
+                        p={2}
+                        mb={2}
+                        bg={index % 2 === 0 ? 'beige.100' : 'gray.200'}
+                        borderRadius="md"
+                    >
+                        <Flex alignItems="center">
+                            {editingTask === task.id ? (
+                                <>
+                                    <Input
+                                        flex="1"
+                                        value={task.description}
+                                        onChange={(e) => updateTask(task.id, e.target.value)}
+                                    />
+                                    <Button size="sm" onClick={() => handleEdit(task.id, task.description)}>
+                                        Guardar
                                     </Button>
-                                    <Button
-                                        size="sm"
-                                        onClick={() => deleteTask(task.id)}
-                                        leftIcon={<FontAwesomeIcon icon={faTrash} />}
-                                        variant="outline"
-                                        colorScheme="red"
+                                </>
+                            ) : (
+                                <>
+                                    <Text
+                                        flex="1"
+                                        className={`${completedTasks.includes(task.id) ? 'completed-task' : ''}`}
                                     >
-                                        Eliminar
-                                    </Button>
-                                    <Button
-                                        size="sm"
-                                        onClick={() => handleComplete(task.id)}
-                                        leftIcon={<FontAwesomeIcon icon={faCheck} />}
-                                        variant="outline"
-                                        colorScheme={completedTasks.includes(task.id) ? 'green' : 'gray'}
-                                    >
-                                        Completar
-                                    </Button>
-                                </Flex>
-                            </>
-                        )}
-                    </Flex>
-                </Box>
-            ))}
-        </Box>
+                                        {task.description}
+                                    </Text>
+                                    <Flex>
+                                        <Button
+                                            size="sm"
+                                            onClick={() => setEditingTask(task.id)}
+                                            leftIcon={<FontAwesomeIcon icon={faEdit} />}
+                                            variant="outline"
+                                            colorScheme="blue"
+                                        >
+                                            Editar
+                                        </Button>
+                                        <Button
+                                            size="sm"
+                                            onClick={() => deleteTask(task.id)}
+                                            leftIcon={<FontAwesomeIcon icon={faTrash} />}
+                                            variant="outline"
+                                            colorScheme="red"
+                                        >
+                                            Eliminar
+                                        </Button>
+                                        <Button
+                                            size="sm"
+                                            onClick={() => handleComplete(task.id)}
+                                            leftIcon={<FontAwesomeIcon icon={faCheck} />}
+                                            variant="outline"
+                                            colorScheme={completedTasks.includes(task.id) ? 'green' : 'gray'}
+                                        >
+                                            Completar
+                                        </Button>
+                                    </Flex>
+                                </>
+                            )}
+                        </Flex>
+                    </Box>
+                ))
+            }
+        </Box >
     );
 }
 
